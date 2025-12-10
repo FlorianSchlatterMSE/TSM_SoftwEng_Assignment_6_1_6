@@ -14,36 +14,26 @@
 #include "McuRTT.h"
 #include "McuUtility.h"
 #include "McuLog.h"
-#if 0 /* TODO add tests for sensor */
-  #include "test_sensor.h"
-#endif
 #include "test_leds.h"
-#include "test_dns_resolver.h"
 
 static void TestArgFailed(void) {
   TEST_ASSERT_MESSAGE(false, "wrong test_arg value");
 }
 
-void Tests_Run(void) {
+static void TestTask(void *pv) {
   int nofFailures;
-  uint32_t test_arg = -1;
   int nofBytes;
   unsigned char buf[32];
 
-  nofBytes = McuUnity_RTT_GetArgs(buf, sizeof(buf));
+  McuLog_info("starting test task");
   UNITY_BEGIN();
+  nofBytes = McuUnity_RTT_GetArgs(buf, sizeof(buf));
   if (nofBytes>0) {
-    if (McuUtility_strcmp(buf, "led")==0) {
-      RUN_TEST(TestLeds_OnOff); 
+     if (McuUtility_strcmp(buf, "Led_1")==0) {
+      RUN_TEST(TestLeds_OnOff);
+     } else if (McuUtility_strcmp(buf, "Led_2")==0) {
       RUN_TEST(TestLeds_Toggle);
-    } else if (McuUtility_strcmp(buf, "sensor")==0) {
-      #if 0 /* TODO add tests for sensor */
-      #else
-      RUN_TEST(TestArgFailed);
-      #endif
-    } else if (McuUtility_strcmp(buf, "dns")==0) {
-      RUN_TEST(TestDnsResolver_Test);
-    } else {
+     } else {
       RUN_TEST(TestArgFailed);
      }
   } else {
@@ -55,12 +45,6 @@ void Tests_Run(void) {
 #else
   McuUnity_Exit_LinkServer_Log(nofFailures==0);
 #endif
-}
-
-static void TestTask(void *pv) {
-  McuLog_info("starting test task");
-  vTaskDelay(pdMS_TO_TICKS(100)); /* give sensor some time */
-  Tests_Run();
   vTaskDelete(NULL); /* terminate task */
 }
 

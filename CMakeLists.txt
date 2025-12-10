@@ -41,7 +41,7 @@ set(PICO_BOARD pico_w) # pico or pico_w
 include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 
 # set project name ${CMAKE_PROJECT_NAME}
-project(TSM_PicoW_Sensor
+project(TSM_PicoW_Blinky
   C CXX ASM
 )
 

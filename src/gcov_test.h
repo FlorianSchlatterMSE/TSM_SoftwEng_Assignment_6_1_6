@@ -1,22 +1,20 @@
 /*
- * Copyright (c) 2023, Erich Styger
+ * Copyright (c) 2023-2024, Erich Styger
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef TESTS_H_
-#define TESTS_H_
+#ifndef GCOV_TEST_H_
+#define GCOV_TEST_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void Tests_Run(void);
-
-void Tests_Init(void);
+void gcov_test(int i);
 
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
 
-#endif /* TESTS_H_ */
+#endif /* GCOV_TEST_H_ */

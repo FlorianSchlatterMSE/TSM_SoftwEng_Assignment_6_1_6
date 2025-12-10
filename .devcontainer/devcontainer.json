@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "TSM_PicoW_Sensor",
+	"name": "TSM_PicoW_Blinky",
 	"build": {
         "dockerfile": "Dockerfile" // use local docker file
     },

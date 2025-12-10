@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024, Erich Styger
+ * Copyright (c) 2023, Erich Styger
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -8,11 +8,6 @@
 #define MY_LEDS_H_
 
 #include "platform.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #if PL_CONFIG_USE_LEDS
 
 #include "McuLib.h"
@@ -100,10 +95,7 @@ void Leds_Deinit(void);
 }  /* extern "C" */
 #endif
 
-#endif /* PL_CONFIG_USE_LEDS */
 
-#ifdef __cplusplus
-}  /* extern "C" */
-#endif
+#endif /* PL_CONFIG_USE_LEDS */
 
 #endif /* MY_LEDS_H_ */

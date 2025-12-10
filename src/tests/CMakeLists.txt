@@ -20,9 +20,8 @@ add_library(${THIS_LIBRARY_NAME} ${FILES})
 target_link_libraries(
   ${THIS_LIBRARY_NAME}
   PRIVATE McuLib
-  PRIVATE unityLib
   PRIVATE srcLib
-  PRIVATE pico_cyw43_arch_lwip_sys_freertos 
+  PRIVATE unityLib
 )
 
 # target_include_directories: Libraries need to publish their header files 
@@ -35,43 +34,33 @@ target_include_directories(
 )
 #################################################################################
 if (DEFINED ENV{PICO_SEGGER_IP})
-  # Set PICO_SEGGER_IP to something like "192.168.65.254" or "tunnel:801048148"
+  # Set PICO_SEGGER_IP to something linke "192.168.65.254" or "tunnel:801048148"
   # For using an IP, start on the host 'JLinkRemoteServerCL' (no arguments needed) and use its IP
-  # For using a tunnel, you have to ron the server on thost, e.g. for tunneling:
-  #   JLinkRemoteServerCL -UseTunnel -TunnelBySN -select="801048148"
-  # If using a DevContainer, run the following on the host:
-  #   JLinkRemoteServerCLExe (Linux host) or JLinkRemoteServerCL (Windows host)
-  # If setting PICO_SEGGER_IP in the DevContainer, make sure you re-configure the build system;
-  #   export PICO_SEGGER_IP=192.168.65.254
-  #  check with printenv PICO_SEGGER_IP
-  #   cmake --preset Test
-  #   ctest --verbose --test-dir build/Test -R Led
-  #   JRun --verbose --device RP2040_M0_0 --rtt -if SWD --pc off --sp off --ip "192.168.65.254" --args "led" build/Test/TSM_PicoW_Sensor.elf
-  message(STATUS "JRun: PICO_SEGGER_IP is set to $ENV{PICO_SEGGER_IP}")
+  # For using a tunnel, you have to ron the server on thost, e.g.:
+  # JLinkRemoteServerCL -UseTunnel -TunnelBySN -select="801048148"
   set (JRUN_CTEST_COMMAND JRun --verbose --device RP2040_M0_0 --rtt -if SWD --pc off --sp off --ip "$ENV{PICO_SEGGER_IP}")
 else()
   # Connect directly to the probe with USB
-  message(STATUS "JRun: PICO_SEGGER_IP is not set, using USB connection")
   set (JRUN_CTEST_COMMAND JRun --verbose --device RP2040_M0_0 --rtt -if SWD --pc off --sp off)
 endif()
 
 add_test(
-  NAME Led
-  COMMAND ${JRUN_CTEST_COMMAND} --args "led" ${TEST_EXECUTABLE}
+  NAME Led_1
+  COMMAND ${JRUN_CTEST_COMMAND} --args "Led_1" ${TEST_EXECUTABLE}
 )
 
 add_test(
-  NAME Sensor 
-  COMMAND ${JRUN_CTEST_COMMAND} --args "sensor" ${TEST_EXECUTABLE}
+  NAME Led_2
+  COMMAND ${JRUN_CTEST_COMMAND} --args "Led_2" ${TEST_EXECUTABLE}
 )
 
-add_test(
-  NAME DNS
-  COMMAND ${JRUN_CTEST_COMMAND} --args "dns" ${TEST_EXECUTABLE}
+add_test( # will intentially fail, because no such test
+  NAME Led_3
+  COMMAND ${JRUN_CTEST_COMMAND} --args "Led_3" ${TEST_EXECUTABLE}
 )
 
 set_tests_properties(
-  Led Sensor DNS 
+  Led_1 Led_2 Led_3 
   PROPERTIES 
-  TIMEOUT 15
+  TIMEOUT 30
 ) 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024, Erich Styger
+ * Copyright (c) 2023, Erich Styger
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -8,7 +8,6 @@
 #if PL_CONFIG_USE_LEDS
 #if PL_CONFIG_USE_PICO_W
   #include "pico/cyw43_arch.h"
-  #include "PicoWiFi.h"
 #endif
 #include "McuLib.h"
 #include "leds_config.h"
@@ -370,10 +369,9 @@ void Leds_Init(void) {
 }
 
 void Leds_InitFromTask(void) {
-#if !PL_CONFIG_USE_WIFI && PL_CONFIG_USE_PICO_W
-  if (cyw43_arch_init()==0)  { /* need to init for accessing LEDs and other pins */
-    PicoWiFi_SetArchIsInitialized(true);
-  } else {
+#if PL_CONFIG_USE_PICO_W
+  /* note: if cyw43_arch_init() is called too early, it might hang! Best to wait during startup around 50 ms */
+  if (cyw43_arch_init()!=0) {
     McuLog_fatal("failed initializing CYW43");
     for(;;){}
   }

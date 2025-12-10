@@ -2,21 +2,20 @@
  * Copyright (c) 2023, Erich Styger
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ * Original program by Andreas Zeller.
  */
 
-#ifndef TESTS_H_
-#define TESTS_H_
+#ifndef __SAMPLE_H_
+#define __SAMPLE_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void Tests_Run(void);
-
-void Tests_Init(void);
+void Sample_Init(void);
 
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
 
-#endif /* TESTS_H_ */
+#endif /* __SAMPLE_H_ */

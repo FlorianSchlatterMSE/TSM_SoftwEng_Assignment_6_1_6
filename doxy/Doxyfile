@@ -1,4 +1,4 @@
-# Doxyfile 1.9.8
+# Doxyfile 1.11.0
 
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project.
@@ -62,6 +62,12 @@ PROJECT_BRIEF          = "Blinky project for the RP2040"
 # the logo to the output directory.
 
 PROJECT_LOGO           = mse.png
+
+# With the PROJECT_ICON tag one can specify an icon that is included in the tabs
+# when the HTML document is shown. Doxygen will copy the logo to the output
+# directory.
+
+PROJECT_ICON           =
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is

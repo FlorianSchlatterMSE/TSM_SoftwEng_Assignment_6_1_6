@@ -102,7 +102,7 @@
  * see https://forums.raspberrypi.com/viewtopic.php?t=341914
  */
 #define MEMP_NUM_SYS_TIMEOUT   (LWIP_NUM_SYS_TIMEOUT_INTERNAL + 1)
-#define MQTT_REQ_MAX_IN_FLIGHT  (32) /* maximum of subscribe requests */
+#define MQTT_REQ_MAX_IN_FLIGHT  (5) /* maximum of subscribe requests */
 
 #define DEFAULT_UDP_RECVMBOX_SIZE     TCPIP_MBOX_SIZE
 #define DEFAULT_TCP_RECVMBOX_SIZE     TCPIP_MBOX_SIZE
@@ -149,9 +149,5 @@
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
 /* Default value is defined in lwip\src\include\lwip\opt.h as
  * LWIP_MEM_ALIGN_SIZE(TCP_MSS+40+PBUF_LINK_ENCAPSULATION_HLEN+PBUF_LINK_HLEN)*/
-
- /* ---------- sockets (e.g. UPD) timeout ---------- */
-#define LWIP_SO_RCVTIMEO   1
-#define LWIP_SO_SNDTIMEO   0   /* optional, for send timeouts */
 
 #endif

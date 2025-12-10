@@ -21,15 +21,12 @@ endif()
 
 set_source_files_properties(
   main.c
-  application.c
-  blinky.c
-  buttons.c
-  debounce.c
   leds.c
   platform.c
-  oled.c
-  sensor.c
-  timer.c
+  sample.c
+  application.c
+  gcov_test.c
+  usb_descriptors.c
   PROPERTIES COMPILE_FLAGS --coverage
 )
 
@@ -53,12 +50,9 @@ target_link_libraries(
   PUBLIC rdimonLib # file I/O with semihosting
   PUBLIC gcov      # GNU gcov library
 
-#  pico_cyw43_arch_none     # we need CYW43 to access the GPIO, but we don't need anything else
-#  PRIVATE pico_cyw43_arch_lwip_poll
-# PRIVATE pico_cyw43_arch_lwip_threadsafe_background  # RAW lwIP with NO_SYS=1 in lwipopts.h
-  PRIVATE pico_cyw43_arch_lwip_sys_freertos  # full lwIP including blocking sockets, with NO_SYS=0 in lwipopts.h
-#  PRIVATE pico_cyw43_arch_lwip_threadsafe_background # with NO_SYS=1
-#  PRIVATE pico_cyw43_arch_lwip_poll  #(NO_SYS=1)
+# For PicoW, select the library to be used:
+ PRIVATE pico_cyw43_arch_none     # we need CYW43 to access the GPIO, but we don't need anything else
+#  PRIVATE pico_cyw43_arch_lwip_sys_freertos  # full lwIP including blocking sockets, with NO_SYS=0 in lwipopts.h
 )
 
 if (ENABLE_UNIT_TESTING)
